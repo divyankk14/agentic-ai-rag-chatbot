@@ -4,9 +4,6 @@ from app.graph import build_graph
 
 # APP SETUP 
 app = FastAPI(title="Agentic AI eBook RAG Chatbot")
-
-# Build the graph ONCE when the server starts, not on every request
-# (loading models fresh per-request would be extremely slow)
 graph = build_graph()
 
 
