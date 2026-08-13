@@ -44,7 +44,7 @@ def chat(request: ChatRequest):
     )
 
 
-#HEALTH CHECK 
+#HEALTH CHECK  hehe
 @app.get("/")
 def root():
     return {"status": "RAG chatbot API is running"}
