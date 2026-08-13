@@ -46,7 +46,7 @@ A Retrieval-Augmented Generation (RAG) chatbot built with LangGraph, ChromaDB, a
 
 ### 1. Clone and set up environment
 ```bash
-git clone [your-repo-url]
+git clone https://github.com/divyankk14/agentic-ai-rag-chatbot.git
 cd rag-chatbot
 
 # Using uv (recommended)
