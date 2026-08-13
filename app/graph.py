@@ -12,7 +12,7 @@ load_dotenv()
 llm = ChatGroq(
     model="llama-3.3-70b-versatile",
     api_key=os.getenv("GROQ_API_KEY"),
-    temperature=0  # 0 = deterministic, factual answers, no creative variation - important for grounding
+    temperature=0  # 0 no creative variation
 )
  
 class RAGState(TypedDict):
@@ -38,14 +38,14 @@ def retrieve_node(state: RAGState) -> dict:
     """
     query = state["question"]
 
-    # Step A: vector search, wide net (k=8)
+    # vector search, wide net (k=8)
     query_embedding = embed_model.encode([query]).tolist()
     results = collection.query(query_embeddings=query_embedding, n_results=8)
 
     documents = results["documents"][0]
     metadatas = results["metadatas"][0]
 
-    # Step B: rerank with cross-encoder, keep top 4
+    # Step B: rerank with cross-encoder
     pairs = [(query, doc) for doc in documents]
     scores = reranker.predict(pairs)
 
@@ -80,7 +80,7 @@ def generate_node(state: RAGState) -> dict:
         f"[Page {c['page']}] {c['text']}" for c in chunks
     )
 
-    # This system prompt is the core of "strictly grounded" - it explicitly
+    # This system prompt is the core of "strictly grounded"it explicitly
     # forbids the LLM from using outside knowledge, and gives a required fallback line
     system_prompt = """You are a helpful assistant that answers questions using ONLY the provided context from the Agentic AI eBook.
 
@@ -107,7 +107,7 @@ Answer based strictly on the context above:"""
     return {"answer": response.content}
 
 
-# ---- BUILD THE FULL GRAPH ----
+#  BUILD THE FULL GRAPH 
 def build_graph():
     workflow = StateGraph(RAGState)
 
@@ -121,7 +121,7 @@ def build_graph():
     return workflow.compile()
 
 
-# ---- BUILD THE GRAPH
+# BUILD THE GRAPH
 if __name__ == "__main__":
     graph = build_graph()
 
