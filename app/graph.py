@@ -10,7 +10,8 @@ from langgraph.graph import StateGraph, END
 load_dotenv() 
 
 llm = ChatGroq(
-    model="llama-3.3-70b-versatile",
+    # model="llama-3.3-70b-versatile",
+    model="openai/gpt-oss-120b",
     api_key=os.getenv("GROQ_API_KEY"),
     temperature=0  # 0 no creative variation
 )
